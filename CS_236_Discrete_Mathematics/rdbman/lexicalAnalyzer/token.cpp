@@ -1,11 +1,36 @@
+/// Michael Landes
+/// RDB Manager
+/// //////////////
+
 #include "token.h"
 
-Token::Token()
+using namespace ML_RDBMAN;
+
+Token::Token(char* _token, size_t _length, unsigned int _linenumber, TokenType _tokenType)
+	: token(NULL), linenumber(_linenumber), type(_tokenType)
 {
-	//ctor
+	token = new std::string(_token, _length);
 }
 
 Token::~Token()
 {
-	//dtor
+	delete token;
+}
+
+std::string*
+Token::getToken()
+{
+	return token;
+}
+
+unsigned int
+Token::getLine()
+{
+	return linenumber;
+}
+
+Token::TokenType
+Token::getType()
+{
+	return type;
 }
