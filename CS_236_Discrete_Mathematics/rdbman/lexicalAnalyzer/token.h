@@ -32,7 +32,7 @@ class Token
 	};
 
 	public:
-		Token(char*, size_t, unsigned int, TokenType);
+		Token(char* _token, size_t _length, unsigned int _linenumber, TokenType _type);
 		virtual ~Token();
 
 		std::string* 	getToken();
@@ -47,4 +47,4 @@ class Token
 
 }
 
-#endif // TOKEN_H
+#endif

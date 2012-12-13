@@ -1,4 +1,6 @@
 *.cbp
 *.layout
 *.o
+bin/
+obj/
 
