@@ -6,6 +6,8 @@
 
 #include <stddef.h>
 #include <vector>
+#include <fstream>
+#include <iostream>
 
 using namespace ML_RDBMAN;
 
@@ -14,12 +16,22 @@ LexicalAnalyzer::LexicalAnalyzer() {}
 LexicalAnalyzer::~LexicalAnalyzer() {}
 
 void
-LexicalAnalyzer::process(char* filename)
+LexicalAnalyzer::process(const char* filename)
 {
-	throw LexicalException(-1);
-//	open file for parsing as a stream
+	// Open file for processing
+	std::ifstream file;
+	file.open(filename, std::ios::in);
+	if (!file.is_open())
+		throw LexicalException(LexicalException::FileIO);
 
-//	loop through contents
+	// Process file
+	while(file.good())
+	{
+		char c;
+		file.get(c);
+		std::cout << c;
+	}
 
-//	create tokens and add to list
+	// Cleanup
+	file.close();
 }
