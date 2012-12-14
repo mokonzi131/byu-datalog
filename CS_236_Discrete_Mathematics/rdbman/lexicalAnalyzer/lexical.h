@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <exception>
+#include <fstream>
 
 namespace ML_RDBMAN { class Token; }
 
@@ -43,9 +44,16 @@ class LexicalAnalyzer
 		virtual ~LexicalAnalyzer();
 
 		void process(const char* filename);
+		std::size_t getSize();
+		std::vector<Token*>& getTokens();
 
 	private:
 		std::vector<Token*> tokens;
+
+		void processComment(std::ifstream& file);
+		void processColon(std::ifstream& file, unsigned int line);
+		void processString(std::ifstream& file, unsigned int line);
+		void processID(std::ifstream& file, unsigned int line);
 };
 
 }

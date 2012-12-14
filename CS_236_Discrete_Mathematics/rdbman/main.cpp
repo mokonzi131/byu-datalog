@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "lexicalAnalyzer/lexical.h"
+#include "lexicalAnalyzer/token.h"
 
 int main(int args, char** argv)
 {
@@ -35,13 +36,19 @@ int main(int args, char** argv)
 			default:
 				std::cout << "Lexical Analyzer encountered an undefined error" << std::endl;
 		}
+		return 1;
 	}
 	catch(...)
 	{
 		std::cout << "Unexpected error occured... aborting" << std::endl;
+		return 1;
 	}
 
 	// Print results
+	std::vector<ML_RDBMAN::Token*>& tokens = analyzer.getTokens();
+	for (unsigned int i = 0; i < analyzer.getSize(); ++i)
+		ML_RDBMAN::TokenPrinter::printToken(std::cout, tokens[i]);
+	std::cout << "Total Tokens = " << analyzer.getSize() << std::endl;
 
 	return 0;
 }
