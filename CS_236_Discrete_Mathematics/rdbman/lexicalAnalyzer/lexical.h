@@ -5,7 +5,7 @@
 #include <vector>
 #include <exception>
 
-class Token;
+namespace ML_RDBMAN { class Token; }
 
 #ifndef ML_RDBMAN_LEXICAL_H
 #define ML_RDBMAN_LEXICAL_H
