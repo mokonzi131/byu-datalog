@@ -37,6 +37,8 @@ class Token
 		Token(char* _token, size_t _length, unsigned int _linenumber, TokenType _type);
 		virtual ~Token();
 
+		TokenType getType();
+
 	private:
 		std::string*	token;
 		unsigned int	linenumber;

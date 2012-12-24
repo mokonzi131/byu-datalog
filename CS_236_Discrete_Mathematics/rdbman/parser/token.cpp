@@ -19,6 +19,12 @@ Token::~Token()
 	delete token;
 }
 
+Token::TokenType
+Token::getType()
+{
+	return type;
+}
+
 void
 TokenPrinter::printToken(std::ostream& out, Token* token)
 {

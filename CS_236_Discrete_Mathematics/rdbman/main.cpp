@@ -4,8 +4,10 @@
 
 #include <iostream>
 
-#include "lexicalAnalyzer/lexical.h"
-#include "lexicalAnalyzer/token.h"
+#include "parser/lexical.h"
+#include "parser/token.h"
+#include "parser/parser.h"
+#include "datalog/datalogProgram.h"
 
 int main(int args, char** argv)
 {
@@ -49,6 +51,32 @@ int main(int args, char** argv)
 	for (unsigned int i = 0; i < analyzer.getSize(); ++i)
 		ML_RDBMAN::TokenPrinter::printToken(std::cout, tokens[i]);
 	std::cout << "Total Tokens = " << analyzer.getSize() << std::endl;
+	std::cout << "*********************************************" << std::endl;
+
+	// Parse the Token List
+	ML_RDBMAN::Parser parser;
+	ML_RDBMAN::DatalogProgram* datalog = NULL;
+	try
+	{
+		datalog = parser.parseDatalogProgram(tokens);
+	}
+	catch(ML_RDBMAN::ParserException& e)
+	{
+		std::cout << "Failure!" << std::endl;
+		std::cout << "\t";
+		ML_RDBMAN::TokenPrinter::printToken(std::cout, e.getToken());
+		std::cout << std::endl;
+	}
+	catch(...)
+	{
+		std::cout << "Unexpected error occured while parsing tokens... aborting" << std::endl;
+		return 2;
+	}
+
+	// Cleanup
+	for (unsigned int i = 0; i < tokens.size(); ++i)
+		delete tokens[i];
+	tokens.clear();
 
 	return 0;
 }
