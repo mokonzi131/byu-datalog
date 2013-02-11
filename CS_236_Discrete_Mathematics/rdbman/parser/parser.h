@@ -5,7 +5,24 @@
 #include <exception>
 #include <vector>
 
-namespace ML_RDBMAN { class DatalogProgram; class Token; }
+namespace ML_RDBMAN
+{
+	class DatalogProgram;
+	class SchemeList;
+	class FactList;
+	class RuleList;
+	class QueryList;
+	class Scheme;
+	class Fact;
+	class Rule;
+	class Query;
+	class PredicateList;
+	class Predicate;
+	class ParameterList;
+	class Parameter;
+	class Domain;
+	class Token;
+}
 
 #ifndef ML_RDBMAN_PARSER_H
 #define ML_RDBMAN_PARSER_H
@@ -30,17 +47,29 @@ class Parser
 {
 	public:
 
-		Parser();
-		virtual ~Parser();
-
-		DatalogProgram* parseDatalogProgram(const std::vector<ML_RDBMAN::Token*>&);
+		static DatalogProgram* parseDatalogProgram(const std::vector<ML_RDBMAN::Token*>&);
 
 	private:
 
-		void parseSchemeList(std::vector<Token*>::const_iterator& it);
-		void parseFactList(std::vector<Token*>::const_iterator& it);
-		void parseRuleList(std::vector<Token*>::const_iterator& it);
-		void parseQueryList(std::vector<Token*>::const_iterator& it);
+		static SchemeList* parseSchemeList(std::vector<Token*>::const_iterator& it);
+		static Scheme* parseScheme(std::vector<Token*>::const_iterator& it);
+
+		static FactList* parseFactList(std::vector<Token*>::const_iterator& it);
+		static Fact* parseFact(std::vector<Token*>::const_iterator& it);
+
+		static RuleList* parseRuleList(std::vector<Token*>::const_iterator& it);
+		static Rule* parseRule(std::vector<Token*>::const_iterator& it);
+
+		static QueryList* parseQueryList(std::vector<Token*>::const_iterator& it);
+		static Query* parseQuery(std::vector<Token*>::const_iterator& it);
+
+		static PredicateList* parsePredicateList(std::vector<Token*>::const_iterator& it);
+		static Predicate* parsePredicate(std::vector<Token*>::const_iterator& it);
+
+		static ParameterList* parseParameterList(std::vector<Token*>::const_iterator& it);
+		static Parameter* parseParameter(std::vector<Token*>::const_iterator& it);
+
+		static Domain* parseDomain(const std::vector<ML_RDBMAN::Token*>& tokens);
 };
 
 }

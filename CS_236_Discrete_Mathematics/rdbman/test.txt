@@ -1,11 +1,3 @@
-#.
-#,
-#'a string'
-#Comments get dropped
-#Schemes
-#FactsRules
-#::-
-
 Schemes:
   snap(S,N,A,P)
 

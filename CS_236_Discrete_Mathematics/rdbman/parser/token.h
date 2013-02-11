@@ -38,6 +38,7 @@ class Token
 		virtual ~Token();
 
 		TokenType getType();
+		const char* getValue();
 
 	private:
 		std::string*	token;

@@ -48,23 +48,24 @@ int main(int args, char** argv)
 
 	// Print results
 	std::vector<ML_RDBMAN::Token*>& tokens = analyzer.getTokens();
-	for (unsigned int i = 0; i < analyzer.getSize(); ++i)
-		ML_RDBMAN::TokenPrinter::printToken(std::cout, tokens[i]);
-	std::cout << "Total Tokens = " << analyzer.getSize() << std::endl;
-	std::cout << "*********************************************" << std::endl;
+//	for (unsigned int i = 0; i < analyzer.getSize(); ++i)
+//		ML_RDBMAN::TokenPrinter::printToken(std::cout, tokens[i]);
+//	std::cout << "Total Tokens = " << analyzer.getSize() << std::endl;
+//	std::cout << "*********************************************" << std::endl;
 
 	// Parse the Token List
-	ML_RDBMAN::Parser parser;
 	ML_RDBMAN::DatalogProgram* datalog = NULL;
 	try
 	{
-		datalog = parser.parseDatalogProgram(tokens);
+		datalog = ML_RDBMAN::Parser::parseDatalogProgram(tokens);
+		std::cout << "Success!" << std::endl;
 	}
 	catch(ML_RDBMAN::ParserException& e)
 	{
 		std::cout << "Failure!" << std::endl;
 		std::cout << "\t";
-		ML_RDBMAN::TokenPrinter::printToken(std::cout, e.getToken());
+		if (e.getToken() == NULL) std::cout << "Unexpected EOF";
+		else ML_RDBMAN::TokenPrinter::printToken(std::cout, e.getToken());
 		std::cout << std::endl;
 	}
 	catch(...)
@@ -73,10 +74,16 @@ int main(int args, char** argv)
 		return 2;
 	}
 
+	// Print Results
+
+
 	// Cleanup
 	for (unsigned int i = 0; i < tokens.size(); ++i)
 		delete tokens[i];
 	tokens.clear();
+
+	if (datalog != NULL) datalog->toString();
+	if (datalog != NULL) delete datalog;
 
 	return 0;
 }

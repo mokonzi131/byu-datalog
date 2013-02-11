@@ -25,6 +25,12 @@ Token::getType()
 	return type;
 }
 
+const char*
+Token::getValue()
+{
+	return const_cast<const char*>(token->c_str());
+}
+
 void
 TokenPrinter::printToken(std::ostream& out, Token* token)
 {
